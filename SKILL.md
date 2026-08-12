@@ -24,8 +24,8 @@ Optional: `REDASH_TIMEOUT` (ms, default 30000).
 ```
 redash-cli queries list [-page N] [-page-size N]
 redash-cli queries get <id>
-redash-cli queries create -name X -data-source-id N -query "SQL" [-description X]
-redash-cli queries update <id> [-name X] [-data-source-id N] [-query SQL] [-description X] [-archived]
+redash-cli queries create -name X -data-source-id N -query "SQL" [-description X] [-draft]
+redash-cli queries update <id> [-name X] [-data-source-id N] [-query SQL] [-description X] [-archived] [-draft true|false]
 redash-cli queries archive <id>
 redash-cli queries run <id> [-max-age N]       # cached results.json; -max-age 0 forces refresh
 redash-cli queries run-csv <id>
@@ -68,6 +68,11 @@ prints the full raw response, not just the ID.
 
 ## Notes
 
+- Redash always creates queries as drafts server-side, no matter what the
+  create request sends. `queries create` un-drafts automatically after
+  creating; pass `-draft` to leave it as a draft. Use `queries update <id>
+  -draft true|false` to flip draft status later (e.g. before attaching a
+  visualization built on it to a dashboard).
 - IDs are always the first positional argument, before any flags:
   `redash-cli queries update 5 -name "New name"`, not the reverse.
 - `adhoc run` polls Redash's async job endpoint automatically when a query

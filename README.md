@@ -40,8 +40,8 @@ non-zero with an error on stderr on failure.
 ```
 redash-cli queries list [-page N] [-page-size N]
 redash-cli queries get <id>
-redash-cli queries create -name X -data-source-id N -query "SQL" [-description X]
-redash-cli queries update <id> [-name X] [-data-source-id N] [-query SQL] [-description X] [-archived]
+redash-cli queries create -name X -data-source-id N -query "SQL" [-description X] [-draft]
+redash-cli queries update <id> [-name X] [-data-source-id N] [-query SQL] [-description X] [-archived] [-draft true|false]
 redash-cli queries archive <id>
 redash-cli queries run <id> [-max-age N]
 redash-cli queries run-csv <id>
@@ -99,6 +99,10 @@ redash-cli dashboards get "$dashboard_id"
 
 ## Notes
 
+- Redash always creates queries as drafts server-side, regardless of what
+  the create request sends. `queries create` un-drafts automatically after
+  creating; pass `-draft` to leave it as a draft. `queries update -draft
+  true|false` flips draft status on an existing query.
 - `queries run` reads `/api/queries/{id}/results.json`; pass `-max-age 0` to
   force a refresh instead of using Redash's cache.
 - `adhoc run` posts to `/api/query_results` and, if Redash queues an async
