@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120">
+  <rect width="480" height="120" fill="none"/>
+  <g font-family="Helvetica, Arial, sans-serif" font-weight="600">
+    <text x="240" y="72" text-anchor="middle" fill="#DC3545" font-size="52">Redash</text>
+    <text x="337" y="48" fill="#00ADD8" font-size="24">Go</text>
+  </g>
+</svg>
