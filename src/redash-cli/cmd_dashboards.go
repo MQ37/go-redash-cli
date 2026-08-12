@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 func runDashboards(args []string) error {
@@ -42,7 +43,8 @@ func runDashboards(args []string) error {
 		if err := flag.NewFlagSet("dashboards get", flag.ExitOnError).Parse(flagArgs); err != nil {
 			return err
 		}
-		raw, err := c.Get(fmt.Sprintf("/api/dashboards/%s", idOrSlug), nil)
+		path, q := dashboardLookup(idOrSlug)
+		raw, err := c.Get(path, q)
 		if err != nil {
 			return err
 		}
@@ -80,4 +82,21 @@ func runDashboards(args []string) error {
 	default:
 		return fmt.Errorf("unknown dashboards subcommand: %s", sub)
 	}
+}
+
+// dashboardLookup resolves the argument to "dashboards get" into a Redash
+// request. It accepts a bare numeric ID, the "<id>-<slug>" form shown in a
+// dashboard's browser URL (e.g. "346-agentic-payments" — the API's actual
+// slug is just "agentic-payments"), or a bare slug. A bare slug needs the
+// "legacy" query param; Redash's slug route 500s without it.
+func dashboardLookup(idOrSlug string) (path string, query url.Values) {
+	if _, err := strconv.Atoi(idOrSlug); err == nil {
+		return fmt.Sprintf("/api/dashboards/%s", idOrSlug), nil
+	}
+	if dash := strings.Index(idOrSlug, "-"); dash > 0 {
+		if id, err := strconv.Atoi(idOrSlug[:dash]); err == nil {
+			return fmt.Sprintf("/api/dashboards/%d", id), nil
+		}
+	}
+	return fmt.Sprintf("/api/dashboards/%s", idOrSlug), url.Values{"legacy": {""}}
 }

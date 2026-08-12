@@ -11,16 +11,15 @@ that prefer a subprocess call over an MCP tool call.
 ## Install
 
 ```bash
-go install github.com/MQ37/go-redash-cli@latest
+go install github.com/MQ37/go-redash-cli/src/redash-cli@latest
 ```
 
-This installs the `go-redash-cli` binary. Build it as `redash-cli` instead if
-you prefer a shorter name:
+This installs the `redash-cli` binary. To build it from a clone instead:
 
 ```bash
 git clone https://github.com/MQ37/go-redash-cli
 cd go-redash-cli
-go build -o redash-cli .
+go build -o redash-cli ./src/redash-cli
 ```
 
 ## Configuration
