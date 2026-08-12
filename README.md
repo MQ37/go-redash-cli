@@ -1,6 +1,8 @@
 # go-redash-cli
 
-<img src="logo.svg" alt="go-redash-cli" width="240">
+<p align="center">
+  <img src="logo.svg" alt="go-redash-cli" width="288">
+</p>
 
 Plain CLI for the [Redash](https://redash.io) REST API. No MCP, no server,
 zero dependencies outside the Go standard library — for AI agents and scripts
