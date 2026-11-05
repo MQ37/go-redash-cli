@@ -99,6 +99,8 @@ redash-cli dashboards get "$dashboard_id"
 
 ## Notes
 
+- Text widgets accept Markdown. Use `-width 2` with `-position-json '{"col":0,"row":0,"sizeX":12,"sizeY":6}'` for a full-width notice. The legacy `-width` accepts 1 or 2; the grid width comes from `sizeX`. Text-widget requests include `visualization_id: null` for compatibility with older Redash APIs.
+
 - Redash always creates queries as drafts server-side, regardless of what
   the create request sends. `queries create` un-drafts automatically after
   creating; pass `-draft` to leave it as a draft. `queries update -draft

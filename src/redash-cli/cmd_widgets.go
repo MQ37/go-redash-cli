@@ -63,8 +63,10 @@ func runWidgets(args []string) error {
 		}
 		body := map[string]any{
 			"dashboard_id": *dashboardID,
-			"width":        *width,
-			"options":      options,
+			// Older Redash versions require this field even for text widgets.
+			"visualization_id": nil,
+			"width":            *width,
+			"options":          options,
 		}
 		if *visualizationID != 0 {
 			body["visualization_id"] = *visualizationID

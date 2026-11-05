@@ -68,6 +68,8 @@ prints the full raw response, not just the ID.
 
 ## Notes
 
+- Text widgets use Markdown: `# OUTDATED` renders a large heading, and `[label](https://example.com)` creates a link. For a full-width notice, use `-width 2 -position-json '{"col":0,"row":0,"sizeX":12,"sizeY":6}'`. `-width` is the legacy 1-or-2 setting; `position.sizeX` controls the 12-column grid. The CLI sends `visualization_id: null` for text widgets, as older Redash APIs require.
+
 - Redash always creates queries as drafts server-side, no matter what the
   create request sends. `queries create` un-drafts automatically after
   creating; pass `-draft` to leave it as a draft. Use `queries update <id>
